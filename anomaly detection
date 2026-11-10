@@ -1,0 +1,11 @@
+import statistics
+
+def detect_anomalies(data, k=1.5):
+    q1, _, q3 = statistics.quantiles(data, n=4)
+    iqr = q3 - q1
+    lower, upper = q1 - k * iqr, q3 + k * iqr
+    return [x for x in data if x < lower or x > upper]
+
+if __name__ == "__main__":
+    data = [10, 12, 11, 13, 12, 95, 11, 10, 12, -40]
+    print("Anomalies:", detect_anomalies(data))
